@@ -18,22 +18,8 @@ from oscar.defaults import *
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nu1=)-c9o-&kpc9yir4c42j^tlic1)g31=^it=2b1_s_*piy3+'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
