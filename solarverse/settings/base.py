@@ -70,6 +70,13 @@ INSTALLED_APPS = [
     'django_tables2',
 ]
 
+# Add Oscar's custom auth backend so users can sign in using their email
+# address.
+AUTHENTICATION_BACKENDS = (
+    'oscar.apps.customer.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 SITE_ID = 1
 
 # Order pipeline
@@ -142,6 +149,8 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
