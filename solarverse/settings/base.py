@@ -180,5 +180,6 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+if not os.path.exists('./logs'):
+    os.makedirs('./logs')
 LOGGING = LOGGING
