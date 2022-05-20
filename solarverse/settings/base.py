@@ -181,8 +181,4 @@ STATIC_URL = '/static/'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
 LOGGING = LOGGING
-=======
-LOGGING = LOGGING
->>>>>>> 12942d85125a16abc021dbab49c0f43f3200a538
