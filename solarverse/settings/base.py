@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig',
     'oscarapi',
     'rest_framework',
+    'inquirydata',
 
     # 3rd-party apps that oscar depends on
     'widget_tweaks',
@@ -194,6 +195,10 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Creating a logs directory if not already existed
 if not os.path.exists('./logs'):
     os.makedirs('./logs')
+
+# Logging setup
 LOGGING = LOGGING
