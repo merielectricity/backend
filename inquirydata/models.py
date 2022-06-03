@@ -10,7 +10,7 @@ class data_inquiry(models.Model):
     name = models.CharField(blank=False, max_length=100, null=False)
     email = models.EmailField(blank=False, null=False)
     phone_number = PhoneField(blank=False, help_text='Contact phone number', null=False)
-    adress = models.CharField(blank=False, max_length=100, null=False)
+    address = models.CharField(blank=False, max_length=100, null=False)
     city = models.CharField(blank=False, max_length=40, null=False)
     state = models.CharField(blank=False, max_length=40, null=False)
     pincode = models.IntegerField(blank=False, null=False)
