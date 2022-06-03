@@ -16,6 +16,10 @@ class data_inquiry(models.Model):
     pincode = models.IntegerField(blank=False, null=False)
     existing_plant = models.BooleanField(blank=False, null=False)
     plant_size = models.IntegerField(blank=True, null=True)
-    geo_location = models.CharField(blank=True, null=True, max_length=100)
+    lattitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'data_inquiry'
+
 
