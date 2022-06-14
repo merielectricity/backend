@@ -207,4 +207,4 @@ if not os.path.exists('./logs'):
     os.makedirs('./logs')
 
 # Logging setup
-LOGGING = LOGGING
+#LOGGING = LOGGING
