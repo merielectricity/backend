@@ -28,6 +28,6 @@ def addData(request):
         message = 'This is a test mail'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email]
-        print(send_mail(subject, message, email_from, recipient_list, fail_silently=False))
+        send_mail(subject, message, email_from, recipient_list, fail_silently=False)
         serializer.save()
     return Response(serializer.data)
