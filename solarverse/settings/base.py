@@ -17,7 +17,7 @@ from oscar.defaults import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
+EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
 
 # Application definition
 INSTALLED_APPS = [
@@ -135,20 +135,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'solarverse.wsgi.application'
 
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        'ATOMIC_REQUESTS': True,
-    }
-}
-
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
@@ -174,7 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 OSCAR_DEFAULT_CURRENCY = "INR"
-OSCAR_SHOP_NAME = "SolarVerse"
+OSCAR_SHOP_NAME = "MeriElectricity"
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
