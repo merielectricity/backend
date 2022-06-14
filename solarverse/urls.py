@@ -14,9 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.apps import apps
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib import admin
+from django.shortcuts import render
 
+def render_react(request):
+    return render(request, "index.html")
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 
@@ -26,4 +29,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("oscarapi.urls")),
     # path('', include(apps.get_app_config('oscar').urls[0])),
+    re_path(r"^$", render_react),
+    re_path(r"^(?:.*)/?$", render_react),
 ]
+
+# from django.contrib import admin
+# from django.urls import path, re_path
+
+  
+# urlpatterns = [
+#   path("admin/", admin.site.urls),
