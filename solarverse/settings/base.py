@@ -18,8 +18,8 @@ from .logging import LOGGING
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-<<<<<<< HEAD
 #EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
+EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get('host_mail', 'smtp.gmail.com')
 EMAIL_USE_TLS = True
@@ -27,9 +27,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('my_email')
 EMAIL_HOST_PASSWORD = os.environ.get('my_pass')
 
-=======
-EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
->>>>>>> 068b244f5a1b05757df2f0da35f69b9925f92f76
+
 
 # Application definition
 INSTALLED_APPS = [
