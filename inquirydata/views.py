@@ -23,7 +23,7 @@ def addData(request):
     data = request.data
     serializer = data_inquirySerializer(data=data)
     if serializer.is_valid():
-        email = data['email']
+        email = data.get('email')
         subject = 'Subject'
         message = 'This is a test mail'
         email_from = settings.EMAIL_HOST_USER

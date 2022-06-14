@@ -20,11 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 #EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = os.environ.get('host_mail', 'smtp.gmail.com')
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ['my_email']
-EMAIL_HOST_PASSWORD = os.environ['my_pass']
+EMAIL_HOST_USER = os.environ.get('my_email')
+EMAIL_HOST_PASSWORD = os.environ.get('my_pass')
 
 
 # Application definition
