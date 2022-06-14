@@ -1,6 +1,8 @@
 from .base import *
 
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'staggingmerielectricty')
+
+DEBUG = os.environ.get('SECRET_KEY', False)
 
 DATABASES = {
     'default': {

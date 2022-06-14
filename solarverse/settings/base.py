@@ -18,6 +18,7 @@ from .logging import LOGGING
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 #EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get('host_mail', 'smtp.gmail.com')
@@ -26,6 +27,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('my_email')
 EMAIL_HOST_PASSWORD = os.environ.get('my_pass')
 
+=======
+EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
+>>>>>>> 068b244f5a1b05757df2f0da35f69b9925f92f76
 
 # Application definition
 INSTALLED_APPS = [
@@ -144,20 +148,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'solarverse.wsgi.application'
 
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        'ATOMIC_REQUESTS': True,
-    }
-}
-
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
@@ -183,7 +173,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 OSCAR_DEFAULT_CURRENCY = "INR"
-OSCAR_SHOP_NAME = "SolarVerse"
+OSCAR_SHOP_NAME = "MeriElectricity"
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
