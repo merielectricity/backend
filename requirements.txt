@@ -27,4 +27,3 @@ pytz==2022.1
 six==1.16.0
 sorl-thumbnail==12.6.3
 sqlparse==0.4.2
-typing_extensions==4.2.0

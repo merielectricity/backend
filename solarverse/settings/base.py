@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from oscar.defaults import *
-from .logging import LOGGING
+#from .logging import LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -191,8 +191,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Creating a logs directory if not already existed
-if not os.path.exists('./logs'):
-    os.makedirs('./logs')
+#if not os.path.exists('./logs'):
+#    os.makedirs('./logs')
 
 # Logging setup
 #LOGGING = LOGGING

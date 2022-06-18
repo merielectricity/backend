@@ -1,8 +1,5 @@
-from statistics import mode
-from typing_extensions import Required
 from django.db import models
 from phone_field import PhoneField
-from pkg_resources import require
 
 # Create your models here.
 

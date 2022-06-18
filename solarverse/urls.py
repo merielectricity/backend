@@ -25,6 +25,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("api/", include("oscarapi.urls")),
-    path('test/', include("inquirydata.urls")),
+    path('inquiry/', include("inquirydata.urls")),
     path('', include(apps.get_app_config('oscar').urls[0])),
 ]
