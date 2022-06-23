@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("oscarapi.urls")),
     path('inquiry/', include("inquirydata.urls")),
+    path('exceltojson/', include("exceltojson.urls")),
     path('', include(apps.get_app_config('oscar').urls[0])),
 ]

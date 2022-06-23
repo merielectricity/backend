@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'oscarapi',
     'rest_framework',
     'inquirydata',
+    'exceltojson',
 
     # 3rd-party apps that oscar depends on
     'widget_tweaks',
