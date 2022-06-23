@@ -16,7 +16,7 @@ factory-boy==3.2.1
 Faker==13.11.1
 flake8==4.0.1
 mccabe==0.6.1
-numpy==1.22.4
+numpy==1.21.3
 openpyxl==3.0.10
 pandas==1.4.2
 phonenumbers==8.12.48
