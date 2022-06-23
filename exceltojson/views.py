@@ -1,8 +1,5 @@
 #views.py (app)
-from email import header
-from http.client import HTTPResponse
-from django.http import HttpResponse, JsonResponse
-from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework.decorators import api_view
 import pandas
 
