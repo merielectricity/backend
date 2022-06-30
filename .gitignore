@@ -130,8 +130,3 @@ dmypy.json
 
 # Staticfiles
 */static/
-
-#images 
-images
-categories
-cache
