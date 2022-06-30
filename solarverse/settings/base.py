@@ -17,6 +17,8 @@ from oscar.defaults import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR.parent.parent / 'web-app'
+print(BASE_DIR, FRONTEND_DIR)
 
 #EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
 EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     # custom apps
     'django.contrib.sites',
     'django.contrib.flatpages',
@@ -115,6 +118,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Ensure a valid basket is added to the request instance for every request
     'oscar.apps.basket.middleware.BasketMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 USE_TZ = True
@@ -127,7 +131,7 @@ ROOT_URLCONF = 'solarverse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [FRONTEND_DIR / 'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -172,7 +176,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 OSCAR_DEFAULT_CURRENCY = "INR"
-OSCAR_SHOP_NAME = "MeriElectricity"
+OSCAR_SHOP_NAME = "SolarVerse"
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 
@@ -184,9 +188,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage')
+
+STATIC_ROOT = BASE_DIR / 'static'
+
+STATIC_URL = '/static/'  # already declared in the default settings
+
+WHITENOISE_ROOT = FRONTEND_DIR / 'build'
+# STATIC_URL = '/dist/'
+# # Extra places for collectstatic to find static files.
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'frontend/build',
+# ]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
