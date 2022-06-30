@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig',
     'oscarapi',
     'rest_framework',
-    'inquirydata',
     'exceltojson',
 
     # 3rd-party apps that oscar depends on
