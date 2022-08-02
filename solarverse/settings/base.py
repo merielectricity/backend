@@ -13,12 +13,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from oscar.defaults import *
+# import mimetypes
+# mimetypes.add_type("text/html", ".css", True)
 #from .logging import LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-FRONTEND_DIR = BASE_DIR.parent.parent / 'web-app'
-print(BASE_DIR, FRONTEND_DIR)
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# FRONTEND_DIR = BASE_DIR.parent.parent / 'web-app'
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+print(BASE_DIR, TEMPLATE_DIR, STATIC_DIR)
 
 #EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
 EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
@@ -130,7 +135,8 @@ ROOT_URLCONF = 'solarverse.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [FRONTEND_DIR / 'build'],
+        # 'DIRS': [FRONTEND_DIR / 'build'],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -187,16 +193,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
-STATICFILES_STORAGE = (
-    'whitenoise.storage.CompressedManifestStaticFilesStorage')
+# STATICFILES_STORAGE = (
+#     'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
-STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = BASE_DIR / 'static'
 
-STATIC_URL = '/static/'  # already declared in the default settings
+# STATIC_URL = '/static/'  # already declared in the default settings
 
-WHITENOISE_ROOT = FRONTEND_DIR / 'build'
+# WHITENOISE_ROOT = FRONTEND_DIR / 'build'
 # STATIC_URL = '/dist/'
 # # Extra places for collectstatic to find static files.
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -204,6 +209,13 @@ WHITENOISE_ROOT = FRONTEND_DIR / 'build'
 #     BASE_DIR / 'frontend/build',
 # ]
 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [STATIC_DIR]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+APPEND_SLASH=False
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
