@@ -7,7 +7,7 @@ import dotenv
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.local')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.production')
 
     if os.getenv('DJANGO_SETTINGS_MODULE'):
         os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')

@@ -28,8 +28,8 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("api/", include("oscarapi.urls")),
-    path('', include("inquirydata.urls")),
-    # path('', include(apps.get_app_config('oscar').urls[0])),
+    path('enquiry/', include("inquirydata.urls")),
+    path('', include(apps.get_app_config('oscar').urls[0])),
     # re_path(r"^$", render_react),
     # re_path(r"^(?:.*)/?$", render_react),
 ]

@@ -1,8 +1,10 @@
 from .base import *
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY','solar')
 
 DEBUG = os.environ.get('DEBUG_VALUE', False)
+
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
@@ -16,10 +18,10 @@ DATABASES = {
     }
 }
 
-SECURE_SSL_REDIRECT = True
+#SECURE_SSL_REDIRECT = True
 
-SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
-SECURE_BROWSER_XSS_FILTER = True
+#SECURE_BROWSER_XSS_FILTER = True
