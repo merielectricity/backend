@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=254, unique=True, verbose_name='email address')),
                 ('first_name', models.CharField(blank=True, max_length=255, verbose_name='First name')),
                 ('last_name', models.CharField(blank=True, max_length=255, verbose_name='Last name')),
-                ('phone_number', models.CharField(blank=True, max_length=10, unique=True, validators=[django.core.validators.RegexValidator(message='phone number must be 10 digits long.', regex='^\\d{10}$')], verbose_name='Phone number')),
+                ('phone_number', models.CharField(null=True, max_length=10, unique=True, validators=[django.core.validators.RegexValidator(message='phone number must be 10 digits long.', regex='^\\d{10}$')], verbose_name='Phone number')),
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='Staff status')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='Active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),

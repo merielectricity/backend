@@ -67,7 +67,7 @@ class SVUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         _("Phone number"),
         max_length=10,
         validators=[PhoneValidator],
-        blank=True,
+        null=True,
         unique=True,
     )
     is_staff = models.BooleanField(
