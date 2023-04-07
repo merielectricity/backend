@@ -11,6 +11,10 @@ import os
 import dotenv
 
 from django.core.wsgi import get_wsgi_application
+import dotenv
+
+dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'stagging')}")
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.stagging')
 
