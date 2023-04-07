@@ -29,10 +29,10 @@ urlpatterns = [
 #         r"^dashboard/", include(apps.get_app_config("oscarbundles_dashboard").urls[0])
 #     ),
 #     # Include stock Oscar
-#     re_path(r"^", include(apps.get_app_config("oscar").urls[0])),
+     re_path(r"^", include(apps.get_app_config("oscar").urls[0])),
 # ]
 
-    path('', include(apps.get_app_config('oscar').urls[0])),
+#    path('', include(apps.get_app_config('oscar').urls[0])),
     # re_path(r"^$", render_react),
     # re_path(r"^(?:.*)/?$", render_react),
 ]

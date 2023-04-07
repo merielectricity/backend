@@ -2,7 +2,7 @@ from .base import *
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "staggingmerielectricty")
 
-DEBUG = os.environ.get("DEBUG_VALUE", True)
+DEBUG = os.environ.get("DEBUG_VALUE", False)
 
 ALLOWED_HOSTS = ["*"]
 
