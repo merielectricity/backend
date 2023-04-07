@@ -1,17 +1,5 @@
-"""solarverse URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+solarverse URL Configuration
 """
 from django.apps import apps
 from django.urls import include, path, re_path
@@ -20,6 +8,8 @@ from django.shortcuts import render
 
 def render_react(request):
     return render(request, "index.html")
+
+
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 
@@ -28,16 +18,22 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("api/", include("oscarapi.urls")),
-    path('enquiry/', include("inquirydata.urls")),
+    # path('enquiry/', include("inquirydata.urls")),
+    # path('', include("social.apps.django_app.urls",namespace="social")),
+    path('', include("social_django.urls"), name='social'),
+        # Oscar Bundles API URLs
+    # re_path(r"^api/", include(apps.get_app_config("oscarbundles_api").urls[0])),
+    # re_path(r"^api/", include("oscarapi.urls")),
+    # Oscar Bundles Dashboard URLs
+    # re_path(
+#         r"^dashboard/", include(apps.get_app_config("oscarbundles_dashboard").urls[0])
+#     ),
+#     # Include stock Oscar
+#     re_path(r"^", include(apps.get_app_config("oscar").urls[0])),
+# ]
+
     path('', include(apps.get_app_config('oscar').urls[0])),
     # re_path(r"^$", render_react),
     # re_path(r"^(?:.*)/?$", render_react),
 ]
-
-# from django.contrib import admin
-# from django.urls import path, re_path
-
-  
-# urlpatterns = [
-#   path("admin/", admin.site.urls),
-
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

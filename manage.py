@@ -4,13 +4,18 @@ import os
 import sys
 import dotenv
 
+dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'stagging')}")
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.production')
+    os.environ.setdefault(
+        "DJANGO_SETTINGS_MODULE",
+        f"solarverse.settings.{os.environ.get('DJANGO_ENV','stagging')}",
+    )
 
-    if os.getenv('DJANGO_SETTINGS_MODULE'):
-        os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')
+    if os.getenv("DJANGO_SETTINGS_MODULE"):
+        os.environ["DJANGO_SETTINGS_MODULE"] = os.getenv("DJANGO_SETTINGS_MODULE")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -22,9 +27,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-
-dotenv.load_dotenv(
-    os.path.join(os.path.dirname(__file__), '.env')
-)
