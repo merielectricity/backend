@@ -85,6 +85,7 @@ class SVUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_phone_verified = models.BooleanField(_("Phone Number Verified"), default=False)
+    is_email_verified = models.BooleanField(_("Email Address Verified"), default=False)
     otp = models.CharField(_("Recent OTP"), max_length=6, blank=True)
 
     objects = UserManager()
