@@ -13,185 +13,192 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from oscar.defaults import *
+
 # import mimetypes
 # mimetypes.add_type("text/html", ".css", True)
-#from .logging import LOGGING
+# from .logging import LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # FRONTEND_DIR = BASE_DIR.parent.parent / 'web-app'
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-print(BASE_DIR, TEMPLATE_DIR, STATIC_DIR)
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+STATIC_DIR = os.path.join(BASE_DIR, "static")
 
-#EMAIL_SUBJECT_PREFIX = '[SolarVerse] '
-EMAIL_SUBJECT_PREFIX = '[MeriElectricity] '
+EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get('host_mail', 'smtp.gmail.com')
+EMAIL_HOST = os.environ.get("host_mail", "smtp.gmail.com")
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('my_email')
-EMAIL_HOST_PASSWORD = os.environ.get('my_pass')
-
+EMAIL_HOST_USER = os.environ.get("my_email")
+EMAIL_HOST_PASSWORD = os.environ.get("my_pass")
 
 
 # Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",
+    "django.contrib.sites",
+    "django.contrib.flatpages",
     # custom apps
-    'django.contrib.sites',
-    'django.contrib.flatpages',
+    "customapps.svuser.apps.SVUserConfig",
     # third party apps
-    'oscar.config.Shop',
-    'oscar.apps.analytics.apps.AnalyticsConfig',
-    'oscar.apps.checkout.apps.CheckoutConfig',
-    'oscar.apps.address.apps.AddressConfig',
-    'oscar.apps.shipping.apps.ShippingConfig',
-    'oscar.apps.catalogue.apps.CatalogueConfig',
-    'oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig',
-    'oscar.apps.communication.apps.CommunicationConfig',
-    'oscar.apps.partner.apps.PartnerConfig',
-    'oscar.apps.basket.apps.BasketConfig',
-    'oscar.apps.payment.apps.PaymentConfig',
-    'oscar.apps.offer.apps.OfferConfig',
-    'oscar.apps.order.apps.OrderConfig',
-    'oscar.apps.customer.apps.CustomerConfig',
-    'oscar.apps.search.apps.SearchConfig',
-    'oscar.apps.voucher.apps.VoucherConfig',
-    'oscar.apps.wishlists.apps.WishlistsConfig',
-    'oscar.apps.dashboard.apps.DashboardConfig',
-    'oscar.apps.dashboard.reports.apps.ReportsDashboardConfig',
-    'oscar.apps.dashboard.users.apps.UsersDashboardConfig',
-    'oscar.apps.dashboard.orders.apps.OrdersDashboardConfig',
-    'oscar.apps.dashboard.catalogue.apps.CatalogueDashboardConfig',
-    'oscar.apps.dashboard.offers.apps.OffersDashboardConfig',
-    'oscar.apps.dashboard.partners.apps.PartnersDashboardConfig',
-    'oscar.apps.dashboard.pages.apps.PagesDashboardConfig',
-    'oscar.apps.dashboard.ranges.apps.RangesDashboardConfig',
-    'oscar.apps.dashboard.reviews.apps.ReviewsDashboardConfig',
-    'oscar.apps.dashboard.vouchers.apps.VouchersDashboardConfig',
-    'oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig',
-    'oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig',
-    'oscarapi',
-    'rest_framework',
-    'inquirydata',
-
+    "oscar.config.Shop",
+    "oscar.apps.analytics.apps.AnalyticsConfig",
+    "oscar.apps.checkout.apps.CheckoutConfig",
+    "oscar.apps.address.apps.AddressConfig",
+    "oscar.apps.shipping.apps.ShippingConfig",
+    "oscar.apps.catalogue.apps.CatalogueConfig",
+    "oscar.apps.catalogue.reviews.apps.CatalogueReviewsConfig",
+    "oscar.apps.communication.apps.CommunicationConfig",
+    "oscar.apps.partner.apps.PartnerConfig",
+    "oscar.apps.basket.apps.BasketConfig",
+    "oscar.apps.payment.apps.PaymentConfig",
+    "oscar.apps.offer.apps.OfferConfig",
+    "oscar.apps.order.apps.OrderConfig",
+    "oscar.apps.customer.apps.CustomerConfig",
+    "oscar.apps.search.apps.SearchConfig",
+    "oscar.apps.voucher.apps.VoucherConfig",
+    "oscar.apps.wishlists.apps.WishlistsConfig",
+    "oscar.apps.dashboard.apps.DashboardConfig",
+    "oscar.apps.dashboard.reports.apps.ReportsDashboardConfig",
+    "oscar.apps.dashboard.users.apps.UsersDashboardConfig",
+    "oscar.apps.dashboard.orders.apps.OrdersDashboardConfig",
+    "oscar.apps.dashboard.catalogue.apps.CatalogueDashboardConfig",
+    "oscar.apps.dashboard.offers.apps.OffersDashboardConfig",
+    "oscar.apps.dashboard.partners.apps.PartnersDashboardConfig",
+    "oscar.apps.dashboard.pages.apps.PagesDashboardConfig",
+    "oscar.apps.dashboard.ranges.apps.RangesDashboardConfig",
+    "oscar.apps.dashboard.reviews.apps.ReviewsDashboardConfig",
+    "oscar.apps.dashboard.vouchers.apps.VouchersDashboardConfig",
+    "oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig",
+    "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
+    "oscarapi",
+    "rest_framework",
+    "social_django",
     # 3rd-party apps that oscar depends on
-    'widget_tweaks',
-    'haystack',
-    'treebeard',
-    'sorl.thumbnail',   # Default thumbnail backend as of now.
-    'django_tables2',
+    "widget_tweaks",
+    "haystack",
+    "treebeard",
+    "sorl.thumbnail",  # Default thumbnail backend as of now.
+    "django_tables2",
 ]
+
+AUTH_USER_MODEL = "svuser.SVUser"
 
 # Add Oscar's custom auth backend so users can sign in using their email
 # address.
 AUTHENTICATION_BACKENDS = (
-    'oscar.apps.customer.auth_backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "solarverse.auth_backends.EmailBackend",
+    "django.contrib.auth.backends.ModelBackend",
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.instagram.InstagramOAuth2",
+    "social_core.backends.facebook.FacebookAppOAuth2",
+    "social_core.backends.facebook.FacebookOAuth2",
 )
 
 SITE_ID = 1
 
 # Order pipeline
-OSCAR_INITIAL_ORDER_STATUS = 'Pending'
-OSCAR_INITIAL_LINE_STATUS = 'Pending'
+OSCAR_INITIAL_ORDER_STATUS = "Pending"
+OSCAR_INITIAL_LINE_STATUS = "Pending"
 OSCAR_ORDER_STATUS_PIPELINE = {
-    'Pending': ('Being processed', 'Cancelled',),
-    'Being processed': ('Processed', 'Cancelled',),
-    'Cancelled': (),
+    "Pending": (
+        "Being processed",
+        "Cancelled",
+    ),
+    "Being processed": (
+        "Processed",
+        "Cancelled",
+    ),
+    "Cancelled": (),
 }
 
+# Oscar-API
 OSCARAPI_ENABLE_REGISTRATION = True
-
+OSCARAPI_EXPOSE_USER_DETAILS = True
+OSCARAPI_OVERRIDE_MODULES = ["customapps.api"]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # Ensure a valid basket is added to the request instance for every request
-    'oscar.apps.basket.middleware.BasketMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "oscar.apps.basket.middleware.BasketMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 USE_TZ = True
-TIME_ZONE = 'Asia/Calcutta'
+TIME_ZONE = "Asia/Calcutta"
 
-LANGUAGE_CODE = 'en-in'
+LANGUAGE_CODE = "en-in"
 
-ROOT_URLCONF = 'solarverse.urls'
+ROOT_URLCONF = "solarverse.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
         # 'DIRS': [FRONTEND_DIR / 'build'],
-        'DIRS': [TEMPLATE_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "DIRS": [TEMPLATE_DIR],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
                 # custom context managers
-                'oscar.apps.search.context_processors.search_form',
-                'oscar.apps.checkout.context_processors.checkout',
-                'oscar.apps.communication.notifications.context_processors.notifications',
-                'oscar.core.context_processors.metadata',
+                "oscar.apps.search.context_processors.search_form",
+                "oscar.apps.checkout.context_processors.checkout",
+                "oscar.apps.communication.notifications.context_processors.notifications",
+                "oscar.core.context_processors.metadata",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'solarverse.wsgi.application'
+WSGI_APPLICATION = "solarverse.wsgi.application"
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    "default": {
+        "ENGINE": "haystack.backends.simple_backend.SimpleEngine",
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 OSCAR_DEFAULT_CURRENCY = "INR"
 OSCAR_SHOP_NAME = "SolarVerse"
-# Internationalization
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+# Social-Auth
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ["email"]
 
 
 # STATICFILES_STORAGE = (
@@ -209,19 +216,19 @@ USE_TZ = True
 #     BASE_DIR / 'frontend/build',
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [STATIC_DIR]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-APPEND_SLASH=False
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+APPEND_SLASH = False
 # Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Creating a logs directory if not already existed
-#if not os.path.exists('./logs'):
+# if not os.path.exists('./logs'):
 #    os.makedirs('./logs')
 
 # Logging setup
-#LOGGING = LOGGING
+# LOGGING = LOGGING
