@@ -93,7 +93,6 @@ class SVUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     USERNAME_FIELD = "email"
 
     class Meta:
-        # abstract = True
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 

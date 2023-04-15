@@ -13,12 +13,15 @@ import dotenv
 from django.core.wsgi import get_wsgi_application
 import dotenv
 
-dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'stagging')}")
+dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'local')}")
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.stagging')
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    f"solarverse.settings.{os.environ.get('DJANGO_ENV','local')}",
+)
 
-if os.getenv('DJANGO_SETTINGS_MODULE'):
-    os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')
+if os.getenv("DJANGO_SETTINGS_MODULE"):
+    os.environ["DJANGO_SETTINGS_MODULE"] = os.getenv("DJANGO_SETTINGS_MODULE")
 
 application = get_wsgi_application()
