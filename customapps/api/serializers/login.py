@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, password_validation
 from oscarapi.serializers import login
 from django.core.exceptions import ValidationError
+from customapps.utils.validation_helper import is_email
 
 
 User = get_user_model()
@@ -15,26 +16,26 @@ def field_length(fieldname):
 class RegisterUserSerializer(login.RegisterUserSerializer):
     phone_number = serializers.CharField(
         max_length=field_length("phone_number"),
-        required=True,
+        required=False,
     )
     first_name = serializers.CharField(
         max_length=field_length("first_name"),
         required=True,
     )
-    lastname = serializers.CharField(
+    last_name = serializers.CharField(
         max_length=field_length("last_name"),
-        required=True,
+        required=False,
     )
 
     def create_user(
-        self, email, password, first_name, lastname=None, phone_number=None
+        self, email, password, first_name, last_name=None, phone_number=None
     ):
         # this is a separate method so it's easy to override
         return User.objects.create_user(
             email=email,
             password=password,
             first_name=first_name,
-            last_name=lastname,
+            last_name=last_name,
             phone_number=phone_number,
         )
 
@@ -46,14 +47,20 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
         first_name = self.validated_data["first_name"]
         phone_number = self.validated_data.get("phone_number")
         return self.create_user(
-            email, password, first_name, lastname=last_name, phone_number=phone_number
+            email, password, first_name, last_name=last_name, phone_number=phone_number
         )
 
     def validate(self, attrs):
-        if User.objects.filter(email=attrs["email"]).exists():
+        if is_email(attrs.get("email")) is not True:
+            raise serializers.ValidationError("Valid Email Address Required")
+
+        if User.objects.filter(email=attrs.get("email", "")).exists():
             raise serializers.ValidationError("A user with this email already exists")
 
-        if User.objects.filter(phone_number=attrs["phone_number"]).exists():
+        if is_email(attrs.get("phone_number")) is not False:
+            raise serializers.ValidationError("Valid Phone Number Required")
+
+        if User.objects.filter(phone_number=attrs.get("phone_number", "")).exists():
             raise serializers.ValidationError(
                 "This Phone number is already linked to a user"
             )

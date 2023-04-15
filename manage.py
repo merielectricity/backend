@@ -4,14 +4,14 @@ import os
 import sys
 import dotenv
 
-dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'stagging')}")
+dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'local')}")
 
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault(
         "DJANGO_SETTINGS_MODULE",
-        f"solarverse.settings.{os.environ.get('DJANGO_ENV','stagging')}",
+        f"solarverse.settings.{os.environ.get('DJANGO_ENV','local')}",
     )
 
     if os.getenv("DJANGO_SETTINGS_MODULE"):

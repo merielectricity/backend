@@ -13,25 +13,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from oscar.defaults import *
+from .keys import *
 
 # import mimetypes
 # mimetypes.add_type("text/html", ".css", True)
 # from .logging import LOGGING
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# FRONTEND_DIR = BASE_DIR.parent.parent / 'web-app'
+BASE_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+FRONTEND_DIR = BASE_DIR.parent.parent / "web_app"
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
-
-EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get("host_mail", "smtp.gmail.com")
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("my_email")
-EMAIL_HOST_PASSWORD = os.environ.get("my_pass")
 
 
 # Application definition
@@ -47,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.flatpages",
     # custom apps
     "customapps.svuser.apps.SVUserConfig",
+    "customapps.enquiry.apps.EnquiryConfig",
     # third party apps
     "oscar.config.Shop",
     "oscar.apps.analytics.apps.AnalyticsConfig",
@@ -80,7 +73,11 @@ INSTALLED_APPS = [
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     "oscarapi",
     "rest_framework",
-    "social_django",
+    "corsheaders",
+    # "rest_framework_simplejwt",
+    # "rest_framework_simplejwt.token_blacklist",
+    # "social.apps.django_app.default",
+    # "social_django",
     # 3rd-party apps that oscar depends on
     "widget_tweaks",
     "haystack",
@@ -94,13 +91,21 @@ AUTH_USER_MODEL = "svuser.SVUser"
 # Add Oscar's custom auth backend so users can sign in using their email
 # address.
 AUTHENTICATION_BACKENDS = (
-    "solarverse.auth_backends.EmailBackend",
+    "solarverse.auth_backends.CustomAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
-    "social_core.backends.google.GoogleOAuth2",
-    "social_core.backends.instagram.InstagramOAuth2",
-    "social_core.backends.facebook.FacebookAppOAuth2",
-    "social_core.backends.facebook.FacebookOAuth2",
+    "social.backends.google.GoogleOAuth2",
 )
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}
+
 
 SITE_ID = 1
 
@@ -135,6 +140,7 @@ MIDDLEWARE = [
     # Ensure a valid basket is added to the request instance for every request
     "oscar.apps.basket.middleware.BasketMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 USE_TZ = True
@@ -147,7 +153,7 @@ ROOT_URLCONF = "solarverse.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        # 'DIRS': [FRONTEND_DIR / 'build'],
+        "DIRS": [FRONTEND_DIR / "build"],
         "DIRS": [TEMPLATE_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -174,7 +180,16 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+# Email config
+EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get("HOST_MAIL")
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
+OSCAR_FROM_EMAIL = os.environ.get("OSCAR_FROM_EMAIL")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -194,11 +209,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 OSCAR_DEFAULT_CURRENCY = "INR"
 OSCAR_SHOP_NAME = "SolarVerse"
-
-# Social-Auth
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ["email"]
 
 
 # STATICFILES_STORAGE = (

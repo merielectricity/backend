@@ -12,9 +12,12 @@ import os
 from django.core.asgi import get_asgi_application
 import dotenv
 
-dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'stagging')}")
+dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'local')}")
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solarverse.settings.stagging')
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    f"solarverse.settings.{os.environ.get('DJANGO_ENV','local')}",
+)
 
 application = get_asgi_application()
