@@ -74,10 +74,7 @@ INSTALLED_APPS = [
     "oscarapi",
     "rest_framework",
     "corsheaders",
-    # "rest_framework_simplejwt",
-    # "rest_framework_simplejwt.token_blacklist",
-    # "social.apps.django_app.default",
-    # "social_django",
+    "social_django",
     # 3rd-party apps that oscar depends on
     "widget_tweaks",
     "haystack",
@@ -93,18 +90,9 @@ AUTH_USER_MODEL = "svuser.SVUser"
 AUTHENTICATION_BACKENDS = (
     "solarverse.auth_backends.CustomAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
-    "social.backends.google.GoogleOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
 )
 
-
-# REST_FRAMEWORK = {
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework.permissions.AllowAny",
-#     ],
-#     "DEFAULT_AUTHENTICATION_CLASSES": [
-#         "rest_framework_simplejwt.authentication.JWTAuthentication",
-#     ],
-# }
 
 
 SITE_ID = 1
@@ -167,6 +155,7 @@ TEMPLATES = [
                 "oscar.apps.checkout.context_processors.checkout",
                 "oscar.apps.communication.notifications.context_processors.notifications",
                 "oscar.core.context_processors.metadata",
+                # "social_django.context_processors.backends",
             ],
         },
     },
@@ -179,6 +168,30 @@ HAYSTACK_CONNECTIONS = {
         "ENGINE": "haystack.backends.simple_backend.SimpleEngine",
     },
 }
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+# Enable Google and Facebook as authentication providers
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }    
+# }
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
 
 # Email config
 EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
@@ -242,3 +255,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Logging setup
 # LOGGING = LOGGING
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+

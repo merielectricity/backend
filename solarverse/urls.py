@@ -6,9 +6,8 @@ from django.urls import include, path, re_path
 from django.contrib import admin
 from django.shortcuts import render
 from customapps.enquiry.views import EnquiryView
-
-def render_react(request):
-    return render(request, "index.html")
+# def render_react(request):
+#     return render(request, "index.html")
 
 
 urlpatterns = [
@@ -22,8 +21,11 @@ urlpatterns = [
     # path('', TemplateView.as_view(template_name="blog/index.html")),
     # path('api/social/', include('allauth.urls')),
     path('api/enquiry/', EnquiryView.as_view(), name="enquiry"),
+    # path('accounts/', include('allauth.urls')),
     # path('enquiry/', include("inquirydata.urls")),
-    # path('', include("social.apps.django_app.urls",namespace="social")),
+    path('api/social/', include('social_django.urls', namespace='social')),
+    # path('social-auth/<str:provider>/', social_auth, name='social_auth'),
+    # path('social-auth/complete/<str:provider>/', views.social_auth_complete, name='social_auth_complete'),
         # Oscar Bundles API URLs
     # re_path(r"^api/", include(apps.get_app_config("oscarbundles_api").urls[0])),
     # re_path(r"^api/", include("oscarapi.urls")),
@@ -32,7 +34,7 @@ urlpatterns = [
 #         r"^dashboard/", include(apps.get_app_config("oscarbundles_dashboard").urls[0])
 #     ),
 #     # Include stock Oscar
-     re_path(r"^dev/", include(apps.get_app_config("oscar").urls[0])),
+     re_path(r"^", include(apps.get_app_config("oscar").urls[0])),
 # ]
 
     #JWT
@@ -42,7 +44,7 @@ urlpatterns = [
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
 #    path('', include(apps.get_app_config('oscar').urls[0])),
-    re_path(r"^$", render_react),
+    # re_path(r"^$", render_react),
     # re_path(r"^(?:.*)/?$", render_react),
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
