@@ -7,11 +7,11 @@ from customapps.utils import validation_helper
 
 User = get_user_model()
 
-if hasattr(User, "REQUIRED_FIELDS"):
-    if not (User.USERNAME_FIELD == "email" or "email" in User.REQUIRED_FIELDS):
-        raise ImproperlyConfigured(
-            "EmailBackend: Your User model must have an email" " field with blank=False"
-        )
+# if hasattr(User, "REQUIRED_FIELDS"):
+#     if not (User.USERNAME_FIELD == "email" or "email" in User.REQUIRED_FIELDS):
+#         raise ImproperlyConfigured(
+#             "EmailBackend: Your User model must have an email" " field with blank=False"
+#         )
 
 
 class CustomAuthBackend(ModelBackend):

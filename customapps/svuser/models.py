@@ -6,7 +6,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
-
+from oscar.apps.customer.abstract_models import AbstractUser,UserManager as BaseUserManager
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from oscar.core.compat import AUTH_USER_MODEL
 
 
@@ -15,16 +16,19 @@ PhoneValidator = RegexValidator(
 )
 
 
-class UserManager(auth_models.BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         """
         Creates and saves a User with the given email and
         password.
         """
         now = timezone.now()
-        if not email:
-            raise ValueError("The given email must be set")
-        email = UserManager.normalize_email(email)
+        # if not email:
+        #     raise ValueError("The given email must be set")
+        # email = UserManager.normalize_email(email)
+
+        if email:
+            email=UserManager.normalize_email(email)
         user = self.model(
             email=email,
             is_staff=False,
@@ -48,15 +52,25 @@ class UserManager(auth_models.BaseUserManager):
         return u
 
 
-class SVUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
+class SVUser(AbstractUser):
     """
     An abstract base user suitable for use in Oscar projects.
 
     This is basically a copy of the core AbstractUser model but without a
     username field
     """
-
-    email = models.EmailField(_("email address"), unique=True)
+    username_validator = UnicodeUsernameValidator()
+    username = models.CharField(
+        _('username'),
+        max_length=150,
+        unique=True,
+        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[username_validator],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
+    email = models.EmailField(_("email address"), unique=True,null=True)
     first_name = models.CharField(
         _("First name"),
         max_length=255,
@@ -90,7 +104,7 @@ class SVUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
 
     class Meta:
         verbose_name = _("User")

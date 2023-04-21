@@ -128,7 +128,6 @@ MIDDLEWARE = [
     # Ensure a valid basket is added to the request instance for every request
     "oscar.apps.basket.middleware.BasketMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    # "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 USE_TZ = True
@@ -155,7 +154,6 @@ TEMPLATES = [
                 "oscar.apps.checkout.context_processors.checkout",
                 "oscar.apps.communication.notifications.context_processors.notifications",
                 "oscar.core.context_processors.metadata",
-                # "social_django.context_processors.backends",
             ],
         },
     },
@@ -170,29 +168,6 @@ HAYSTACK_CONNECTIONS = {
 }
 
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
-
-# Enable Google and Facebook as authentication providers
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }    
-# }
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_UNIQUE_EMAIL = True
-
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-
 # Email config
 EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
