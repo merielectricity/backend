@@ -4,9 +4,6 @@ from oscarapi.serializers import login
 from django.core.exceptions import ValidationError
 from customapps.utils.validation_helper import is_email
 from customapps.utils.loginhelper import generate_username
-# from django.contrib.auth.models import User as AuthUser
-import ipdb
-
 
 
 User = get_user_model()
@@ -35,7 +32,6 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
     username = serializers.SerializerMethodField()
 
     def get_username(self, obj):
-        ipdb.set_trace()
         return generate_username()
 
     def create_user(
