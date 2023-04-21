@@ -118,6 +118,7 @@ OSCARAPI_EXPOSE_USER_DETAILS = True
 OSCARAPI_OVERRIDE_MODULES = ["customapps.api"]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -234,4 +235,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
