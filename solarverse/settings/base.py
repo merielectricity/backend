@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     "oscarapi",
     "rest_framework",
-    "corsheaders",
+    # "corsheaders",
     "social_django",
     # 3rd-party apps that oscar depends on
     "widget_tweaks",
@@ -118,7 +118,7 @@ OSCARAPI_EXPOSE_USER_DETAILS = True
 OSCARAPI_OVERRIDE_MODULES = ["customapps.api"]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    # "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -236,5 +236,10 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ]
+# }
