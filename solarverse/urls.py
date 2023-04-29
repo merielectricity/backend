@@ -6,6 +6,7 @@ from django.urls import include, path, re_path
 from django.contrib import admin
 from django.shortcuts import render
 from customapps.enquiry.views import EnquiryView
+from customapps.api.views.login import OTPVerificationView
 # def render_react(request):
 #     return render(request, "index.html")
 
@@ -18,6 +19,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/', include("oscarapi.urls")),
+    path('api/otp-verify/',OTPVerificationView.as_view(), name='verify-otp'),
     # path('', TemplateView.as_view(template_name="blog/index.html")),
     # path('api/social/', include('allauth.urls')),
     path('api/enquiry/', EnquiryView.as_view(), name="enquiry"),

@@ -81,6 +81,8 @@ INSTALLED_APPS = [
     "treebeard",
     "sorl.thumbnail",  # Default thumbnail backend as of now.
     "django_tables2",
+    "django_otp",
+    'django_otp.plugins.otp_totp',
 ]
 
 AUTH_USER_MODEL = "svuser.SVUser"
@@ -171,8 +173,8 @@ HAYSTACK_CONNECTIONS = {
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 # Email config
 EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 EMAIL_HOST = os.environ.get("HOST_MAIL")
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

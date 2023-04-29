@@ -43,7 +43,8 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, password, **extra_fields):
+        email=extra_fields["username"]+"@solarverse.com"
         u = self.create_user(email, password, **extra_fields)
         u.is_staff = True
         u.is_active = True

@@ -33,6 +33,14 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
 
     def get_username(self, obj):
         return generate_username()
+    
+    @property
+    def get_is_phone_verified(self):
+        return True if self.data.get("phone_number") else False
+    @property
+    def get_is_email_verified(self):
+        return True if self.data.get("email") else False
+
 
     def create_user(
         self,password, first_name, last_name=None, phone_number=None,email=None
@@ -45,6 +53,8 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
             last_name=last_name,
             phone_number=phone_number,
             username=self.get_username(None),
+            is_phone_verified=self.get_is_phone_verified,
+            is_email_verified=self.get_is_email_verified
         )
 
     def save(self):
