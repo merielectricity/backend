@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, password_validation
 from oscarapi.serializers import login
 from django.core.exceptions import ValidationError
-from customapps.utils.validation_helper import is_email
+from customapps.utils.validation_helper import validate_contact_info
 from customapps.utils.loginhelper import generate_username
 
 
@@ -29,10 +29,19 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
         max_length=field_length("last_name"),
         required=False,
     )
+    otp = serializers.CharField(max_length=6,required=False,)
     username = serializers.SerializerMethodField()
 
     def get_username(self, obj):
         return generate_username()
+    
+    def get_message(self, string_value):
+        email = self.validated_data.get("email")
+        phone_number = self.validated_data.get("phone_number")
+        message = string_value + (" email" if email else "") + (" and phone" if email and phone_number else "" if email else " phone")
+        return message
+
+
     
     @property
     def get_is_phone_verified(self):
@@ -68,14 +77,14 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
         )
 
     def validate(self, attrs):
-        if is_email(attrs.get("email")) is None and is_email(attrs.get("phone_number")) is None:
+        import ipdb 
+        ipdb.set_trace()
+        
+        if not validate_contact_info(email=attrs.get("email"),phone_number=attrs.get("phone_number")):
             raise serializers.ValidationError("Valid Email Address or Phone Number Required")
 
         if User.objects.filter(email=attrs.get("email", "")).exists():
             raise serializers.ValidationError("A user with this email already exists")
-
-        # if is_email(attrs.get("phone_number")) is not False:
-        #     raise serializers.ValidationError("Valid Phone Number Required")
 
         if User.objects.filter(phone_number=attrs.get("phone_number", "")).exists():
             raise serializers.ValidationError(

@@ -82,7 +82,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",  # Default thumbnail backend as of now.
     "django_tables2",
     "django_otp",
-    'django_otp.plugins.otp_totp',
+    # 'django_otp.plugins.otp_static',
 ]
 
 AUTH_USER_MODEL = "svuser.SVUser"
@@ -131,6 +131,10 @@ MIDDLEWARE = [
     # Ensure a valid basket is added to the request instance for every request
     "oscar.apps.basket.middleware.BasketMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django_otp.middleware.OTPMiddleware",
+    
+    
+
 ]
 
 USE_TZ = True
@@ -173,7 +177,6 @@ HAYSTACK_CONNECTIONS = {
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 # Email config
 EMAIL_SUBJECT_PREFIX = "[MeriElectricity] "
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 EMAIL_HOST = os.environ.get("HOST_MAIL")
 EMAIL_USE_TLS = True
@@ -181,6 +184,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
 OSCAR_FROM_EMAIL = os.environ.get("OSCAR_FROM_EMAIL")
+MY_EMAIL_DOMAIN = os.environ.get("MY_EMAIL_DOMAIN")
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -234,9 +238,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Logging setup
 # LOGGING = LOGGING
 
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_URL = 'logout'
+# LOGIN_URL = 'login'
+# LOGIN_REDIRECT_URL = 'home'
+# LOGOUT_URL = 'logout'
+
+# Set up OTP_TOTP settings
+OTP_DEFAULT_LENGTH = 6
 
 # CORS_ALLOW_ALL_ORIGINS = True
 

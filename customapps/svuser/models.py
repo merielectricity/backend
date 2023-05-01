@@ -1,4 +1,3 @@
-from django.contrib.auth import models as auth_models
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
 from django.db import models
@@ -6,9 +5,15 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
-from oscar.apps.customer.abstract_models import AbstractUser,UserManager as BaseUserManager
+from oscar.apps.customer.abstract_models import (
+    AbstractUser,
+    UserManager as BaseUserManager,
+)
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from oscar.core.compat import AUTH_USER_MODEL
+# from django_otp.plugins.otp_static.models import StaticDevice as BaseStaticDevice
+from django.conf import settings
+from django_otp.models import Device, ThrottlingMixin
 
 
 PhoneValidator = RegexValidator(
@@ -28,7 +33,7 @@ class UserManager(BaseUserManager):
         # email = UserManager.normalize_email(email)
 
         if email:
-            email=UserManager.normalize_email(email)
+            email = UserManager.normalize_email(email)
         user = self.model(
             email=email,
             is_staff=False,
@@ -44,7 +49,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, password, **extra_fields):
-        email=extra_fields["username"]+"@solarverse.com"
+        uname=extra_fields["username"] 
+        email = f"{uname}@{settings.MY_EMAIL_DOMAIN}"
         u = self.create_user(email, password, **extra_fields)
         u.is_staff = True
         u.is_active = True
@@ -60,18 +66,21 @@ class SVUser(AbstractUser):
     This is basically a copy of the core AbstractUser model but without a
     username field
     """
+
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
-        _('username'),
+        _("username"),
         max_length=150,
         unique=True,
-        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
         validators=[username_validator],
         error_messages={
-            'unique': _("A user with that username already exists."),
+            "unique": _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_("email address"), unique=True,null=True)
+    email = models.EmailField(_("email address"), unique=True, null=True)
     first_name = models.CharField(
         _("First name"),
         max_length=255,
@@ -152,3 +161,60 @@ class SVUser(AbstractUser):
         # use get_user_model to wire up signals to custom user models
         # see Oscar ticket #1127, Django ticket #19218
         self._migrate_alerts_to_user()
+
+
+class StaticDevice(ThrottlingMixin, Device):
+    user = models.ForeignKey(
+        getattr(settings, "AUTH_USER_MODEL", "auth.User"),
+        help_text="The user that this device belongs to.",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def get_throttle_factor(self):
+        return getattr(settings, "OTP_STATIC_THROTTLE_FACTOR", 1)
+
+    def verify_token(self, token):
+        verify_allowed, _ = self.verify_is_allowed()
+        if verify_allowed:
+            match = self.token_set.filter(token=token).first()
+            if match is not None:
+                match.delete()
+                self.throttle_reset()
+            else:
+                self.throttle_increment()
+        else:
+            match = None
+
+        return match is not None
+
+
+class StaticToken(models.Model):
+    """
+    A single token belonging to a :class:`StaticDevice`.
+
+    .. attribute:: device
+
+        *ForeignKey*: A foreign key to :class:`StaticDevice`.
+
+    .. attribute:: token
+
+        *CharField*: A random string up to 16 characters.
+    """
+
+    device = models.ForeignKey(
+        StaticDevice, related_name="token_set", on_delete=models.CASCADE
+    )
+    token = models.CharField(max_length=16, db_index=True)
+
+    # @staticmethod
+    # def random_token():
+    #     """
+    #     Returns a new random string that can be used as a static token.
+
+    #     :rtype: bytes
+
+    #     """
+    #     return b32encode(urandom(5)).decode('utf-8').lower()

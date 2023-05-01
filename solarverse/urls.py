@@ -6,7 +6,12 @@ from django.urls import include, path, re_path
 from django.contrib import admin
 from django.shortcuts import render
 from customapps.enquiry.views import EnquiryView
-from customapps.api.views.login import OTPVerificationView
+from customapps.api.views.login import RegistrationCompleteView
+from customapps.api.views.otp_view import GenerateOTPView, VerifyOTPView
+from customapps.api.views.password_reset import PasswordResetView,PasswordResetConfirmView
+# from oscar.views.decorators import *
+from customapps.utils.decorators import *
+
 # def render_react(request):
 #     return render(request, "index.html")
 
@@ -19,7 +24,11 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/', include("oscarapi.urls")),
-    path('api/otp-verify/',OTPVerificationView.as_view(), name='verify-otp'),
+    path('api/register/complete/',RegistrationCompleteView.as_view(), name='complete_register'),
+    path('api/generate-otp/', login_required(GenerateOTPView.as_view()), name='generate_otp'),
+    path('api/verify-otp/', login_required(VerifyOTPView.as_view()), name='verify_otp'),
+    path('api/password-reset/', login_forbidden(PasswordResetView.as_view()), name='reset_password'),
+    path('api/password-reset/confirm/', login_forbidden(PasswordResetConfirmView.as_view()), name='confirm_reset_password'),
     # path('', TemplateView.as_view(template_name="blog/index.html")),
     # path('api/social/', include('allauth.urls')),
     path('api/enquiry/', EnquiryView.as_view(), name="enquiry"),
