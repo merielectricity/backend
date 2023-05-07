@@ -74,10 +74,6 @@ class RegistrationCompleteView(login.RegistrationView):
             email = serializer.validated_data.get('email') if request.data.get('email') else None
             device_name=email if email is not None else phone_number
             otp=request.data.pop('otp')
-
-            import ipdb
-            ipdb.set_trace()
-
             device, token = create_device_token(name=device_name,otp=otp)
             if (device is None or token is None):
                 return Response("OTP Not Found", status=status.HTTP_400_BAD_REQUEST)

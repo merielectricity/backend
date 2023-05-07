@@ -77,8 +77,6 @@ class RegisterUserSerializer(login.RegisterUserSerializer):
         )
 
     def validate(self, attrs):
-        import ipdb 
-        ipdb.set_trace()
         
         if not validate_contact_info(email=attrs.get("email"),phone_number=attrs.get("phone_number")):
             raise serializers.ValidationError("Valid Email Address or Phone Number Required")

@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from oscar.defaults import *
 from .keys import *
+from datetime import timedelta
 
 # import mimetypes
 # mimetypes.add_type("text/html", ".css", True)
@@ -73,6 +74,8 @@ INSTALLED_APPS = [
     "oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig",
     "oscarapi",
     "rest_framework",
+    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt.token_blacklist',
     # "corsheaders",
     "social_django",
     # 3rd-party apps that oscar depends on
@@ -89,6 +92,7 @@ AUTH_USER_MODEL = "svuser.SVUser"
 
 # Add Oscar's custom auth backend so users can sign in using their email
 # address.
+
 AUTHENTICATION_BACKENDS = (
     "solarverse.auth_backends.CustomAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
@@ -132,9 +136,6 @@ MIDDLEWARE = [
     "oscar.apps.basket.middleware.BasketMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django_otp.middleware.OTPMiddleware",
-    
-    
-
 ]
 
 USE_TZ = True
@@ -247,8 +248,24 @@ OTP_DEFAULT_LENGTH = 6
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ]
-# }
+# Configure JWT settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=10),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': os.environ['SECRET_KEY'],
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}

@@ -25,8 +25,6 @@ def get_user_by_info(email=None,phone_number=None):
 class PasswordResetView(APIView):
     def post(self, request):
         # Check if email and phone number is given
-        import ipdb
-        ipdb.set_trace()
         email=request.data.get("username") if is_email(request.data.get("username")) is True else None
         phone_number=request.data.get("username") if is_email(request.data.get("username")) is False else None
         if not email and not phone_number:
@@ -35,8 +33,9 @@ class PasswordResetView(APIView):
         # If user doesn't exist, we send fake success message to avoid exposing registered users
         if user:
             device, token = create_device_token(user=user)
-            if(not send_otp(token.token,user.email,user.phone_number)):
-                return Response("Failed to Send OTP", status=status.HTTP_400_BAD_REQUEST)
+            send_otp(token.token,user.email,user.phone_number)
+            # if(not send_otp(token.token,user.email,user.phone_number)):
+                # return Response("Failed to Send OTP", status=status.HTTP_400_BAD_REQUEST)
         return Response("OTP Sent,Ensure email or phone number is registered",status=status.HTTP_200_OK)
 
 
