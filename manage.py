@@ -4,7 +4,7 @@ import os
 import sys
 import dotenv
 
-dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'local')}")
+dotenv.load_dotenv(f".env/{os.environ.get('DJANGO_ENV', 'local')}")
 
 
 def main():

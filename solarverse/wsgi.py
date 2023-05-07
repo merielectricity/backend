@@ -13,7 +13,7 @@ import dotenv
 from django.core.wsgi import get_wsgi_application
 import dotenv
 
-dotenv.load_dotenv(f".env/.env.{os.environ.get('DJANGO_ENV', 'local')}")
+dotenv.load_dotenv(f".env/{os.environ.get('DJANGO_ENV', 'local')}")
 
 
 os.environ.setdefault(
