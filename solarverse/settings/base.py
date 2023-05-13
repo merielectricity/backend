@@ -248,6 +248,8 @@ OTP_DEFAULT_LENGTH = 6
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS=['http://localhost:3000','https://solarversetech.netlify.app/','http://localhost:8000','https://staging.merielectricity.in']
+
 # Configure JWT settings
 
 REST_FRAMEWORK = {
