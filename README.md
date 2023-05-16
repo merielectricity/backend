@@ -21,7 +21,10 @@ To install python follow
    for windows: ```.\env\Scripts\activate```
    
    for linux: ```source env/bin/activate```
-
+ 
+3. Source local env
+    source .env/local
+    
 3. Installing requirements
    
    ```pip install -r requirements.txt```
@@ -29,8 +32,6 @@ To install python follow
 ## Running Project
 
 Below commands require a database,default is sqlite , use VsCode to avoid setting up database
-
-Go inside backend folder
 
 1. Create superuser for your local project
 
