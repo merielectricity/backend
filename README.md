@@ -2,6 +2,13 @@
 Backend server/API code.
 
 ## Installation Steps:
+To install python follow
+
+**Windows** : Install Python: If you haven't already, download and install Python from the official Python website (https://www.python.org/downloads/). Make sure to select the option to add Python to the system PATH during the installation process.
+
+**Linux**  : sudo apt-get install python3
+
+**Move to the backed folder, inside cloned git repo for all steps defined below
 
 1. Create Virtual Environment
 
@@ -20,6 +27,10 @@ Backend server/API code.
    ```pip install -r requirements.txt```
 
 ## Running Project
+
+Below commands require a database,default is sqlite , use VsCode to avoid setting up database
+
+Go inside backend folder
 
 1. Create superuser for your local project
 
