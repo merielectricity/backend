@@ -246,9 +246,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Set up OTP_TOTP settings
 OTP_DEFAULT_LENGTH = 6
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 
-CSRF_TRUSTED_ORIGINS=['http://localhost:3000','https://solarversetech.netlify.app','http://localhost:8000','https://staging.merielectricity.in']
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# CSRF_TRUSTED_ORIGINS=['http://localhost:3000','https://solarversetech.netlify.app','http://localhost:8000','https://staging.merielectricity.in']
 
 # Configure JWT settings
 
