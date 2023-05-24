@@ -42,7 +42,7 @@ class LoginView(login.LoginView):
             if request.user.is_authenticated:
                 return Response(
                     {"detail": "Session is in use, log out first"},
-                    status=status.HTTP_405_METHOD_NOT_ALLOWED,
+                    status=status.HTTP_406_NOT_ACCEPTABLE,
                 )
 
             request.user = user
