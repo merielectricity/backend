@@ -56,7 +56,7 @@ class PasswordResetConfirmView(APIView):
             if device.verify_token(otp):
                 user.set_password(password)
                 user.save()
-                return Response(status=status.HTTP_200_OK)
+                return Response("Password changed succesfully,Please login",status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
         else : return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

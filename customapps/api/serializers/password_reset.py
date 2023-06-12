@@ -43,6 +43,6 @@ class PasswordResetSerializer(serializers.Serializer):
             password_validation.validate_password(attrs["password1"])
         except ValidationError as e:
             raise serializers.ValidationError(str(e))
-        
+        return attrs
 
 
