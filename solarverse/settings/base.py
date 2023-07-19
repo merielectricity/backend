@@ -22,7 +22,7 @@ from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FRONTEND_DIR = BASE_DIR.parent.parent / "web_app"
+FRONTEND_DIR = BASE_DIR.parent.parent / "frontend"
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
@@ -149,7 +149,6 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [FRONTEND_DIR / "build"],
-        "DIRS": [TEMPLATE_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -206,29 +205,21 @@ AUTH_PASSWORD_VALIDATORS = [
 OSCAR_DEFAULT_CURRENCY = "INR"
 OSCAR_SHOP_NAME = "SolarVerse"
 
+STATICFILES_DIRS = [FRONTEND_DIR / 'build' / 'static']
 
-# STATICFILES_STORAGE = (
-#     'whitenoise.storage.CompressedManifestStaticFilesStorage')
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage')
 
-# STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'static'
 
-# STATIC_URL = '/static/'  # already declared in the default settings
+STATIC_URL = '/static/'  # already declared in the default settings
 
-# WHITENOISE_ROOT = FRONTEND_DIR / 'build'
-# STATIC_URL = '/dist/'
-# # Extra places for collectstatic to find static files.
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'frontend/build',
-# ]
+WHITENOISE_ROOT = FRONTEND_DIR / 'build' / 'root'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [STATIC_DIR]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 APPEND_SLASH = False
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
